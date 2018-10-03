@@ -2,9 +2,11 @@
 import scrapy
 import telegram
 import datetime
-import locale
+import dateparser
 
-locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
+# import locale
+
+# locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 bot = telegram.Bot(token=settings.get('SPLASH_PASS'))
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
@@ -17,15 +19,16 @@ class MyspiderSpider(scrapy.Spider):
     def parse(self, response):
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
-            dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),
-                                                   '%d%B%Y').date()
+            # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
+            dateEvent = dateparser.parse(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""))
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
-                'domani': tomorrow == dateEvent,
+                'Tomorrow': tomorrow,
+                'isTomorrow': tomorrow == dateEvent,
                 'weekday': tomorrow.isoweekday(),
                 'test': dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3].replace(",", "")
             }
