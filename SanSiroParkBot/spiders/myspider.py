@@ -9,7 +9,7 @@ from scrapy.utils.project import get_project_settings
 
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 settings=get_project_settings()
-bot = telegram.Bot(token='')
+#bot = telegram.Bot(token='')
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
 
@@ -38,9 +38,9 @@ class MyspiderSpider(scrapy.Spider):
 
             yield scraped_info
 
-            bot.send_message(chat_id=165760372, text="Hey guys!!")
+            #bot.send_message(chat_id=165760372, text="Hey guys!!")
 
             if tomorrow == dateEvent and tomorrow.isoweekday():
-                bot.send_message(chat_id=settings.get('SPLASH_USER'),
+               # bot.send_message(chat_id=settings.get('SPLASH_USER'),
                                  text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
-                bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
+               # bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
