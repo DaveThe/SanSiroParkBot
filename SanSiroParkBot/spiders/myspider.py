@@ -3,10 +3,12 @@ import scrapy
 import telegram
 import datetime
 import dateparser
+from scrapy.utils.project import get_project_settings
 
 # import locale
 
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
+settings=get_project_settings()
 bot = telegram.Bot(token=settings.get('SPLASH_PASS'))
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
