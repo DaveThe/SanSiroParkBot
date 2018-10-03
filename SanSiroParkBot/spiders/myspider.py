@@ -8,6 +8,7 @@ locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 bot = telegram.Bot(token=settings.get('SPLASH_PASS'))
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
+
 class MyspiderSpider(scrapy.Spider):
     name = 'myspider'
     allowed_domains = ['eventiasansiro.it']
@@ -37,4 +38,3 @@ class MyspiderSpider(scrapy.Spider):
                 bot.send_message(chat_id=settings.get('SPLASH_USER'),
                                  text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
                 bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
-        pass
