@@ -9,7 +9,7 @@ from scrapy.utils.project import get_project_settings
 
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 settings=get_project_settings()
-bot = telegram.Bot(token=settings.get('SPLASH_PASS'))
+bot = telegram.Bot(token='')
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
 
@@ -26,6 +26,7 @@ class MyspiderSpider(scrapy.Spider):
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
+                'token': settings.get('SPLASH_PASS'),
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
