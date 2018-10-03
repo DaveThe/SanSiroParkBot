@@ -42,5 +42,5 @@ class MyspiderSpider(scrapy.Spider):
 
             if tomorrow == dateEvent and tomorrow.isoweekday():
                # bot.send_message(chat_id=settings.get('SPLASH_USER'),
-                                 text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
+                                 #text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
                # bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
