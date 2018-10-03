@@ -1,0 +1,8 @@
+Sphinx>=1.6
+sphinx_rtd_theme
+Scrapy>=1.5.1
+future>=0.16.0
+certifi
+tornado>=5.1
+cryptography
+python-telegram-bot==11.1.0
