@@ -22,6 +22,9 @@ class MyspiderSpider(scrapy.Spider):
 
     def parse(self, response):
         print("Existing settings: %s" % self.settings.attributes.keys())
+        print("Existing settings: %s" % self.settings.attributes['token'])
+        print("Existing settings: %s" % self.settings.attributes['chatid'])
+        #self.token =
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
             # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
@@ -29,8 +32,8 @@ class MyspiderSpider(scrapy.Spider):
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
-                'token': token,
-                'chatid': chatid,
+                'token': self.token,
+                'chatid': self.chatid,
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
