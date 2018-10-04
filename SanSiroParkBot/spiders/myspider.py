@@ -23,6 +23,7 @@ class MyspiderSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         tokenArg = kwargs.pop('token', [])
         chatidArg = kwargs.pop('chatid', [])
+        self.start_urls = ['http://www.eventiasansiro.it/']
         if tokenArg:
             self.token = tokenArg
         if chatidArg:
