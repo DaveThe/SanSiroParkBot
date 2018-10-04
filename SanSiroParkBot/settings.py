@@ -13,7 +13,7 @@ BOT_NAME = 'SanSiroParkBot'
 
 SPIDER_MODULES = ['SanSiroParkBot.spiders']
 NEWSPIDER_MODULE = 'SanSiroParkBot.spiders'
-
+SPLASH_PASS= 'TOKEN'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'SanSiroParkBot (+http://www.yourdomain.com)'
