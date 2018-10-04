@@ -21,10 +21,11 @@ class MyspiderSpider(scrapy.Spider):
     chatid = ''
 
     def parse(self, response):
-        print("Existing settings: %s" % self.settings.attributes.keys())
-        print("Existing settings: %s" % self.settings.attributes['token'])
-        print("Existing settings: %s" % self.settings.attributes['chatid'])
-        #self.token =
+        # print("Existing settings: %s" % self.settings.attributes.keys())
+        # print("Existing settings: %s" % self.settings.attributes['token'])
+        # print("Existing settings: %s" % self.settings.attributes['chatid'])
+        bot = telegram.Bot(token=self.token)
+        # self.token =
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
             # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
@@ -47,7 +48,7 @@ class MyspiderSpider(scrapy.Spider):
 
             # bot.send_message(chat_id=165760372, text="Hey guys!!")
 
-            # if tomorrow == dateEvent and tomorrow.isoweekday():
-            # bot.send_message(chat_id=settings.get('SPLASH_USER'),
-            # text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
-            # bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
+            if tomorrow == dateEvent and tomorrow.isoweekday():
+                bot.send_message(chat_id=self.chatid,
+                                 text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
+                bot.send_message(chat_id=self.chatid, text=eve)
