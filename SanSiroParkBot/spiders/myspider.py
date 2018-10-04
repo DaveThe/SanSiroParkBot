@@ -46,7 +46,7 @@ class MyspiderSpider(scrapy.Spider):
 
             yield scraped_info
 
-            # bot.send_message(chat_id=165760372, text="Hey guys!!")
+            bot.send_message(chat_id=165760372, text="Hey guys!!")
 
             if tomorrow == dateEvent and tomorrow.isoweekday():
                 bot.send_message(chat_id=self.chatid,
