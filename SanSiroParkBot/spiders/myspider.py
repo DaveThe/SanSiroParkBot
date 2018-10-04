@@ -3,10 +3,10 @@ import scrapy
 import telegram
 import datetime
 import dateparser
-from scrapy.utils.project import get_project_settings
+from scrapy import Request
 # import locale
 
-settings=get_project_settings()
+
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 #bot = telegram.Bot(token='')
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
@@ -17,6 +17,9 @@ class MyspiderSpider(scrapy.Spider):
     allowed_domains = ['eventiasansiro.it']
     start_urls = ['http://www.eventiasansiro.it/']
 
+    def start_requests(self):
+        yield Request(self.token, self.chatid)
+
     def parse(self, response):
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
@@ -25,7 +28,7 @@ class MyspiderSpider(scrapy.Spider):
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
-                'token': settings.get("SPLASH_PASS"),
+                'token': response.request.token,
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
