@@ -20,23 +20,8 @@ class MyspiderSpider(scrapy.Spider):
     token = ''
     chatid = ''
 
-    def __init__(self, *args, **kwargs):
-        tokenArg = kwargs.pop('token', [])
-        chatidArg = kwargs.pop('chatid', [])
-        self.start_urls = ['http://www.eventiasansiro.it/']
-        if tokenArg:
-            self.token = tokenArg
-        if chatidArg:
-            self.chatid = chatidArg
-        self.logger.info(self.token)
-        self.logger.info(self.chatid)
-        #super(MyspiderSpider, self).__init__(*args, **kwargs)
-        yield Request(self.start_urls,self.parse)
-
-    def start_requests(self):
-        yield Request(self)
-
     def parse(self, response):
+        print("Existing settings: %s" % self.settings.attributes.keys())
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
             # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
