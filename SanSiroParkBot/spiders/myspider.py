@@ -4,11 +4,12 @@ import telegram
 import datetime
 import dateparser
 from scrapy import Request
+
 # import locale
 
 
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
-#bot = telegram.Bot(token='')
+# bot = telegram.Bot(token='')
 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 
 
@@ -16,9 +17,22 @@ class MyspiderSpider(scrapy.Spider):
     name = 'myspider'
     allowed_domains = ['eventiasansiro.it']
     start_urls = ['http://www.eventiasansiro.it/']
+    token = ''
+    chatid = ''
+
+    def __init__(self, *args, **kwargs):
+        tokenArg = kwargs.pop('token', [])
+        chatidArg = kwargs.pop('chatid', [])
+        if tokenArg:
+            self.token = tokenArg
+        if chatidArg:
+            self.chatid = chatidArg
+        self.logger.info(self.token)
+        self.logger.info(self.chatid)
+        super(MySpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
-        yield Request(self.token, self.chatid)
+        yield Request(self)
 
     def parse(self, response):
         for event in response.css('.rettangolo'):
@@ -28,7 +42,8 @@ class MyspiderSpider(scrapy.Spider):
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
-                'token': response.request.token,
+                'token': token,
+                'chatid': chatid,
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
@@ -40,9 +55,9 @@ class MyspiderSpider(scrapy.Spider):
 
             yield scraped_info
 
-            #bot.send_message(chat_id=165760372, text="Hey guys!!")
+            # bot.send_message(chat_id=165760372, text="Hey guys!!")
 
-            #if tomorrow == dateEvent and tomorrow.isoweekday():
-               # bot.send_message(chat_id=settings.get('SPLASH_USER'),
-                                 #text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
-               # bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
+            # if tomorrow == dateEvent and tomorrow.isoweekday():
+            # bot.send_message(chat_id=settings.get('SPLASH_USER'),
+            # text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
+            # bot.send_message(chat_id=settings.get('SPLASH_USER'), text=eve)
