@@ -29,7 +29,7 @@ class MyspiderSpider(scrapy.Spider):
             self.chatid = chatidArg
         self.logger.info(self.token)
         self.logger.info(self.chatid)
-        super(MySpider, self).__init__(*args, **kwargs)
+        super(MyspiderSpider, self).__init__(*args, **kwargs)
 
     def start_requests(self):
         yield Request(self)
