@@ -11,7 +11,7 @@ from scrapy import Request
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 # bot = telegram.Bot(token='')
 #tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-tomorrow = dateparser.parse("oggi").strftime('%d%B%Y')
+tomorrow = dateparser.parse("oggi")
 
 class MyspiderSpider(scrapy.Spider):
     name = 'myspider'
@@ -38,8 +38,8 @@ class MyspiderSpider(scrapy.Spider):
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
-                'Tomorrow': tomorrow,
-                'isTomorrow': tomorrow == dateEvent,
+                'Tomorrow': tomorrow.strftime('%d%B%Y'),
+                'isTomorrow': tomorrow.strftime('%d%B%Y') == dateEvent,
                 'weekday': tomorrow.isoweekday(),
                 'test': dateSplit[1] + " " + dateSplit[2] + " " + dateSplit[3].replace(",", "")
             }
@@ -48,7 +48,7 @@ class MyspiderSpider(scrapy.Spider):
 
             #bot.send_message(chat_id=165760372, text="Hey guys!!")
 
-            if tomorrow == dateEvent and tomorrow.isoweekday():
+            if tomorrow.strftime('%d%B%Y') == dateEvent:
                 bot.send_message(chat_id=self.chatid,
                                  text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
                 bot.send_message(chat_id=self.chatid, text=eve)
