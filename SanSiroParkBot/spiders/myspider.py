@@ -10,8 +10,8 @@ from scrapy import Request
 
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 # bot = telegram.Bot(token='')
-tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-
+#tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+tomorrow = dateparser.parse("oggi").strftime('%d%B%Y')
 
 class MyspiderSpider(scrapy.Spider):
     name = 'myspider'
@@ -29,7 +29,7 @@ class MyspiderSpider(scrapy.Spider):
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
             # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
-            dateEvent = dateparser.parse(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""))
+            dateEvent = dateparser.parse(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", "")).strftime('%d%B%Y')
             eve = event.css('.tipoEvento::text').extract_first()
             # dateEvent = dateEvent = datetime.datetime.strptime("22settembre2018", '%d%B%Y').date()
             scraped_info = {
