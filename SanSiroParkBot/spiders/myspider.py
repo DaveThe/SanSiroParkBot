@@ -48,7 +48,9 @@ class MyspiderSpider(scrapy.Spider):
             yield scraped_info
 
             #bot.send_message(chat_id=165760372, text="Hey guys!!")
-
+            if self.flag !== undefined:
+                bot.send_message(chat_id=self.chatid, text=self.flag)
+                
             if tomorrow.strftime('%d%B%Y') == dateEvent:
                 bot.send_message(chat_id=self.chatid,
                                  text="Hey guys! This is a friendly reminder that tomorrow there is an event in Milano San Siro. Remember to park in the right spot!!")
