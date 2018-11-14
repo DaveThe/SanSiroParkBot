@@ -26,6 +26,12 @@ class MyspiderSpider(scrapy.Spider):
         # print("Existing settings: %s" % self.settings.attributes['chatid'])
         bot = telegram.Bot(token=self.token)
         # self.token =
+        
+        try:
+            flags = self.flag
+        except NameError:
+            flags = None
+            
         for event in response.css('.rettangolo'):
             dateSplit = event.css('.dataEv::text').extract_first().split(" ")
             # dateEvent = datetime.datetime.strptime(dateSplit[1].zfill(2) + dateSplit[2] + dateSplit[3].replace(",", ""),'%d%B%Y').date()
@@ -35,7 +41,7 @@ class MyspiderSpider(scrapy.Spider):
             scraped_info = {
                 'token': self.token,
                 'chatid': self.chatid,
-                'flagTest': self.flag if self.flag is not None else '',
+                'flagTest': flags if flags is not None else '',
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
@@ -48,8 +54,8 @@ class MyspiderSpider(scrapy.Spider):
             yield scraped_info
 
             #bot.send_message(chat_id=165760372, text="Hey guys!!")
-            if self.flag is not None:
-                bot.send_message(chat_id=self.chatid, text=self.flag)
+            if flags is not None:
+                bot.send_message(chat_id=self.chatid, text=flags)
                 
             if tomorrow.strftime('%d%B%Y') == dateEvent:
                 bot.send_message(chat_id=self.chatid,
