@@ -35,6 +35,7 @@ class MyspiderSpider(scrapy.Spider):
             scraped_info = {
                 'token': self.token,
                 'chatid': self.chatid,
+                'flagTest': self.flag,
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
