@@ -35,7 +35,7 @@ class MyspiderSpider(scrapy.Spider):
             scraped_info = {
                 'token': self.token,
                 'chatid': self.chatid,
-                'flagTest': self.flag,
+                'flagTest': self.flag if self.flag is not None else '',
                 'evento': eve,
                 'dataEvento': event.css('.dataEv::text').extract_first(),
                 'datetime': dateEvent,
@@ -48,7 +48,7 @@ class MyspiderSpider(scrapy.Spider):
             yield scraped_info
 
             #bot.send_message(chat_id=165760372, text="Hey guys!!")
-            if self.flag !== undefined:
+            if self.flag is not None:
                 bot.send_message(chat_id=self.chatid, text=self.flag)
                 
             if tomorrow.strftime('%d%B%Y') == dateEvent:
