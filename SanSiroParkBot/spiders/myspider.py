@@ -29,7 +29,7 @@ class MyspiderSpider(scrapy.Spider):
         
         try:
             flags = self.flag
-        except NameError:
+        except AttributeError as error:
             flags = None
             
         for event in response.css('.rettangolo'):
