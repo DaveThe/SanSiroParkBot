@@ -11,7 +11,7 @@ from scrapy import Request
 # locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 # bot = telegram.Bot(token='')
 #tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-tomorrow = dateparser.parse("oggi")
+tomorrow = dateparser.parse("domani")
 
 class MyspiderSpider(scrapy.Spider):
     name = 'myspider'
